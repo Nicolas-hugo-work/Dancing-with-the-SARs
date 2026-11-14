@@ -1,0 +1,24 @@
+# Secretos y entorno local
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Datos geoespaciales reales y archivos generados (no se versionan)
+backend/datos/
+backend/staticfiles/
+backend/media/
+
+# Sistema operativo y editores
+.DS_Store
+Thumbs.db
+.idea/
+
+# Artefactos de herramientas de navegador
+.playwright-cli/

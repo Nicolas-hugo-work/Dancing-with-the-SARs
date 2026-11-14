@@ -1,0 +1,12 @@
+* text=auto eol=lf
+
+*.shp binary
+*.shx binary
+*.dbf binary
+*.gpkg binary
+*.tif binary
+*.tiff binary
+*.png binary
+*.jpg binary
+*.zip binary
+*.rar binary
