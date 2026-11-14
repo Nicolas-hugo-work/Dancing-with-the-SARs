@@ -1,0 +1,22 @@
+{
+  "type": "FeatureCollection",
+  "name": "distritos_min_sintetico",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {"DISTRITO": "D1", "NOMBRE": "Distrito sintetico 1"},
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [[[[-66.170, -17.400], [-66.150, -17.400], [-66.150, -17.380], [-66.170, -17.380], [-66.170, -17.400]]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {"DISTRITO": "D2", "NOMBRE": "Distrito sintetico 2"},
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [[[[-66.150, -17.400], [-66.130, -17.400], [-66.130, -17.380], [-66.150, -17.380], [-66.150, -17.400]]]]
+      }
+    }
+  ]
+}
