@@ -1,0 +1,62 @@
+[project]
+name = "sat-cochabamba"
+version = "0.1.0"
+description = "Sistema de Alerta Temprana de inundaciones y mapa de riesgo por distrito (Cochabamba, Bolivia)"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+    "django>=5.2.19,<5.3",
+    "djangorestframework>=3.18.3,<3.19",
+    "djangorestframework-gis>=1.3.0,<1.4",
+    "django-filter>=26.2,<27",
+    "drf-spectacular>=0.30.0,<0.31",
+    "drf-spectacular-sidecar>=2026.10.1",
+    "django-cors-headers>=4.9.0,<5",
+    "python-dotenv>=1.2.4,<2",
+    "psycopg[binary]>=3.3.9,<3.4",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2,<10",
+    "pytest-django>=4.14,<5",
+    "ruff==0.17.5",
+]
+processing = [
+    "numpy>=2.5,<3",
+    "rasterio>=1.5.2,<1.6",
+    "xarray>=2026.9.0",
+    "geopandas>=1.2.0,<1.3",
+]
+
+[tool.uv]
+package = false
+required-version = "==0.13.8"
+environments = ["sys_platform == 'linux'"]
+default-groups = ["dev", "processing"]
+
+[tool.pytest]
+DJANGO_SETTINGS_MODULE = "config.settings"
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = ["-ra", "--strict-markers", "--strict-config"]
+filterwarnings = [
+    "error::django.utils.deprecation.RemovedInDjango60Warning",
+    "error::django.utils.deprecation.RemovedInDjango61Warning",
+]
+
+[tool.ruff]
+target-version = "py314"
+line-length = 100
+extend-exclude = ["*/migrations/*"]
+
+[tool.ruff.format]
+line-ending = "lf"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "N", "S", "SIM", "PT", "C90", "DJ", "RUF"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 8
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "S603", "S607"]
