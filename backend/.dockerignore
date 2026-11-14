@@ -1,0 +1,20 @@
+# Secretos y entorno local
+.env
+.env.*
+**/.env
+**/.env.*
+# Entorno virtual y cachés
+.venv
+**/__pycache__
+**/*.py[cod]
+.pytest_cache
+.ruff_cache
+.coverage
+htmlcov
+# Datos reales y generados
+datos
+staticfiles
+media
+# Docker
+Dockerfile
+.dockerignore
