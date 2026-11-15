@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+@theme {
+  /* Tipografía — variables inyectadas por next/font/google en layout.tsx */
+  --font-sans: var(--font-nunito-sans), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-display: var(--font-righteous), ui-sans-serif, system-ui, sans-serif;
+
+  /* Verde ejecutivo — #184C32 */
+  --color-pacha-50: #f1f6f2;
+  --color-pacha-100: #e0ebe3;
+  --color-pacha-200: #c4d9ca;
+  --color-pacha-300: #9fc0ab;
+  --color-pacha-400: #74a184;
+  --color-pacha-500: #4c8363;
+  --color-pacha-600: #2f6a4b;
+  --color-pacha-700: #184c32;
+  --color-pacha-800: #133d29;
+  --color-pacha-900: #0f3021;
+
+  /* Verde territorio — #BFD1A7 */
+  --color-sage-50: #f7f9f2;
+  --color-sage-100: #eef2e3;
+  --color-sage-200: #e0e8cd;
+  --color-sage-300: #d0dcb7;
+  --color-sage-400: #bfd1a7;
+  --color-sage-500: #a5bb8a;
+  --color-sage-600: #879e6c;
+  --color-sage-700: #687d53;
+  --color-sage-800: #4f6040;
+  --color-sage-900: #3c4932;
+
+  /* Naranja terracota — #D36E3C */
+  --color-terracotta-50: #fdf4ee;
+  --color-terracotta-100: #fbe5d6;
+  --color-terracotta-200: #f6c8ac;
+  --color-terracotta-300: #efa27a;
+  --color-terracotta-400: #e5834f;
+  --color-terracotta-500: #d36e3c;
+  --color-terracotta-600: #b8572a;
+  --color-terracotta-700: #974424;
+  --color-terracotta-800: #7b3822;
+  --color-terracotta-900: #65301e;
+
+  /* Celeste institucional Cochabamba — #4DB8D6 (solo interacción) */
+  --color-celeste-50: #f2fbfd;
+  --color-celeste-100: #e0f5fa;
+  --color-celeste-200: #bceaf5;
+  --color-celeste-300: #8ddcec;
+  --color-celeste-400: #6acae1;
+  --color-celeste-500: #4db8d6;
+  --color-celeste-600: #35a5c4;
+  --color-celeste-700: #1f7f99;
+  --color-celeste-800: #1a687d;
+  --color-celeste-900: #174f60;
+
+  /* Crema institucional — #F2E4DD */
+  --color-cream: #f2e4dd;
+}
+
+@layer base {
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-pacha-700);
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-celeste-100);
+    color: var(--color-pacha-700);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-celeste-500);
+    outline-offset: 2px;
+  }
+
+  input:focus-visible {
+    outline: none;
+  }
+}
+
+@layer utilities {
+  /*
+   * Textura orgánica exclusiva de los paneles de interfaz.
+   * El mapa central queda completamente limpio.
+   */
+  .panel-texture {
+    isolation: isolate;
+  }
+
+  .panel-texture::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background-repeat: repeat;
+    background-position: center;
+    mix-blend-mode: multiply;
+  }
+
+  /* Cada panel tiene una familia de trazos distinta. */
+  .panel-texture-mountains::before {
+    background-image: url("/texture-mountains.svg");
+    background-size: 560px 110px;
+    opacity: 0.08;
+  }
+
+  .panel-texture-topography::before {
+    background-image: url("/texture-topography.svg");
+    background-size: 360px 320px;
+    opacity: 0.08;
+  }
+
+  .panel-texture-grain::before {
+    background-image: url("/texture-grain.svg");
+    background-size: 560px 120px;
+    opacity: 0.07;
+  }
+
+  .scrollbar-soft {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(24 76 50 / 0.35) transparent;
+  }
+
+  .scrollbar-soft::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .scrollbar-soft::-webkit-scrollbar-thumb {
+    background-color: rgb(24 76 50 / 0.35);
+    border-radius: 9999px;
+  }
+
+  .scrollbar-soft::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+}
+
+/* Leaflet: mapa limpio, cálido y coherente con la interfaz. */
+.leaflet-container {
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  background: #f8f3ef;
+  font-family: var(--font-sans);
+}
+
+.leaflet-tile-pane {
+  filter: sepia(0.1) saturate(0.82) brightness(1.02);
+}
+
+.leaflet-container:focus-visible {
+  outline: 2px solid var(--color-celeste-500);
+  outline-offset: -2px;
+}
+
+.district-polygon {
+  cursor: pointer;
+  transition:
+    fill-opacity 220ms ease,
+    stroke-width 220ms ease;
+}
+
+.district-polygon:hover {
+  fill-opacity: 0.16;
+}
+
+.leaflet-tooltip.district-tooltip {
+  padding: 6px 10px;
+  border: 1px solid rgb(24 76 50 / 0.2);
+  border-radius: 8px;
+  background: #f2e4dd;
+  box-shadow: 0 12px 24px rgb(24 76 50 / 0.14);
+  color: #184c32;
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.leaflet-tooltip.district-tooltip::before {
+  border-top-color: #f2e4dd;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
