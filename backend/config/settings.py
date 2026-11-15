@@ -22,6 +22,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.gis",
     "rest_framework",
+    "rest_framework_gis",
+    "django_filters",
+    "drf_spectacular",
+    "drf_spectacular_sidecar",
     "corsheaders",
     "territorio",
     "incidentes",
@@ -96,6 +100,19 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": ["rest_framework.authentication.SessionAuthentication"],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+# Swagger UI servido desde drf-spectacular-sidecar: sin CDN.
+SPECTACULAR_SETTINGS = {
+    "TITLE": "SAT de inundaciones de Cochabamba",
+    "DESCRIPTION": "Capas públicas de solo lectura en GeoJSON (EPSG:4326, orden lon, lat).",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "SCHEMA_PATH_PREFIX": r"/api/v1",
+    "SWAGGER_UI_DIST": "SIDECAR",
+    "SWAGGER_UI_FAVICON_HREF": "SIDECAR",
 }
 
 # CORS solo para la API pública de lectura; nunca se autorizan todos los orígenes.
