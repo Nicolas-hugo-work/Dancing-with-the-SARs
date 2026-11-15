@@ -46,6 +46,26 @@ Ninguna app base importa `riesgo`, y ninguna app importa `config`. Las pruebas d
 - **Datos reales**: en `backend/datos/`, que no se versiona.
 - **Calidad**: desarrollo guiado por pruebas (pytest + pytest-django) y `ruff` como formateador y linter.
 
+## Decisiones de esquema
+
+Revisadas con un especialista en bases de datos (PostgreSQL 17 + PostGIS 3.7, Django 5.2) antes de la primera
+migración. Las migraciones se revisan con `sqlmigrate` antes de cada commit.
+
+| Tema | Decisión |
+| --- | --- |
+| Unidad territorial de las mediciones | Dos FK nulas (`cuenca`, `distrito`) y un `CHECK` «exactamente una» |
+| Unicidad de las series | Dos índices únicos parciales por tabla (uno por FK, con la unidad como primera columna) |
+| Claves naturales | Lluvia: unidad, fuente, método, inicio, fin, versión; humedad: unidad, fuente, capa, inicio, fin, versión; índice: unidad, tipo, fecha de referencia, versión del método |
+| Magnitudes | `FloatField` con `CHECK ... BETWEEN` (rechaza `NaN` e infinito); los cálculos acotan antes de guardar |
+| Borrado | `PROTECT` en todas las FK, incluida `Alerta.reemplaza`: las alertas se cancelan, no se borran |
+| Choices cerradas | Reforzadas con `CHECK ... IN`; no en catálogos cambiantes (`subalcaldia`) ni en textos de la fuente |
+| Índices | Solo los únicos, los de FK y los GiST de cada geometría; sin índices adicionales hasta medir |
+| Rol de base de datos | En desarrollo, el usuario de la imagen PostGIS (superusuario) y `TEST.TEMPLATE = template_postgis`; en producción, rol de migración distinto del rol de la aplicación, sin `CREATEDB` |
+
+Pendientes de dominio, a confirmar con datos reales: regla de desempate entre capas de cuencas anidadas, zona
+horaria de la fecha y hora de los incidentes de origen, metadatos de escenas SAR por polarización y método de
+agregación de la humedad del suelo.
+
 ## Flujo Git
 
 - `develop` es la rama de trabajo y la rama predeterminada del repositorio. No se usa `main`.
