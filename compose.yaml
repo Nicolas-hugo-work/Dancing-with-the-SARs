@@ -21,13 +21,36 @@ services:
 
   web:
     build: ./backend
+    # sh -c con set -e: si migrate falla, runserver no arranca; exec deja a runserver como PID 1 para que reciba SIGTERM.
+    command:
+      - sh
+      - "-c"
+      - "set -e; python manage.py migrate; exec python manage.py runserver 0.0.0.0:8000"
     env_file:
       - path: ./.env
         required: true
+    environment:
+      # Prevalece sobre env_file; DJANGO_DEBUG=false en la orden sustituye al valor del .env.
+      DJANGO_DEBUG: "${DJANGO_DEBUG:?DJANGO_DEBUG no definido en .env}"
     volumes:
       - ./backend:/app
     ports:
       - "127.0.0.1:8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      # Cualquier excepción (conexión, timeout, HTTP 4xx/5xx) termina Python con código 1: no sano.
+      test:
+        - CMD
+        - python
+        - "-c"
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz/', timeout=4)"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+      start_interval: 2s
 
 volumes:
   pgdata:
