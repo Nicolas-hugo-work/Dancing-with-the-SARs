@@ -1,0 +1,22 @@
+{
+  "type": "FeatureCollection",
+  "name": "cuencas_min_sintetico",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {"CODIGO": "8461", "NOMBRE": "Cuenca sintetica 8461"},
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [[[[-66.170, -17.400], [-66.150, -17.400], [-66.150, -17.380], [-66.170, -17.380], [-66.170, -17.400]]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {"CODIGO": "8462", "NOMBRE": "Cuenca sintetica 8462"},
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [[[[-66.150, -17.400], [-66.130, -17.400], [-66.130, -17.380], [-66.150, -17.380], [-66.150, -17.400]]]]
+      }
+    }
+  ]
+}

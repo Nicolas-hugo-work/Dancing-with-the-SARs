@@ -1,0 +1,21 @@
+{
+  "type": "FeatureCollection",
+  "name": "incidentes_min_sintetico",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {"ID": "E-001", "FECHA": "2024-02-10", "TIPO": "Inundación"},
+      "geometry": {"type": "Point", "coordinates": [-66.160, -17.390]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"ID": "E-002", "FECHA": "2024-02-11T23:30:00-04:00", "TIPO": "RIADA"},
+      "geometry": {"type": "Point", "coordinates": [-66.140, -17.390]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"ID": "E-003", "FECHA": "2024-02-12", "TIPO": "Mazamorra"},
+      "geometry": {"type": "Point", "coordinates": [-66.050, -17.390]}
+    }
+  ]
+}
