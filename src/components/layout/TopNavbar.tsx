@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, ChevronDown, MapPin, Radar, UserRound } from "lucide-react";
+import { Bell, ChevronDown, MapPin, UserRound } from "lucide-react";
 
 type TopNavbarProps = {
   city: string;
@@ -19,22 +19,13 @@ export default function TopNavbar({
     <header className="panel-texture panel-texture-mountains fixed left-4 right-4 top-4 z-50 h-20 rounded-2xl border border-[#184C32]/15 bg-[#F2E4DD]/90 shadow-2xl shadow-[#184C32]/20 backdrop-blur-md md:h-24">
       <div className="relative z-10 flex h-full items-center justify-between gap-1 px-2 sm:gap-3 sm:px-5">
         {/* Marca */}
-        <div className="flex min-w-0 shrink items-center gap-2.5">
-          <span className="hidden h-10 w-10 shrink-0 place-items-center rounded-xl border border-[#184C32] bg-[#184C32] text-[#F2E4DD] min-[380px]:grid sm:h-11 sm:w-11">
-            <Radar
-              className="h-5 w-5 sm:h-6 sm:w-6"
-              strokeWidth={1.8}
-              aria-hidden="true"
-            />
-          </span>
-          <div className="min-w-0 leading-none">
-            <span className="block truncate font-display text-2xl font-black tracking-wide text-[#184C32] lg:text-3xl">
-              PachaMetrics
-            </span>
-            <span className="mt-1 hidden text-[8px] font-extrabold uppercase tracking-[0.24em] text-[#184C32]/60 md:block">
-              Observatorio territorial
-            </span>
-          </div>
+        <div className="flex min-w-0 shrink items-center">
+          <img
+            src="/logo-cropped.png"
+            alt="PachaMetrics"
+            title="PachaMetrics"
+            className="h-14 w-auto max-w-full object-contain sm:h-16 md:h-[4.5rem]"
+          />
         </div>
 
         {/* Selector de ciudad */}
@@ -124,9 +115,9 @@ export default function TopNavbar({
           />
 
           <img
-            src="/escudo.png"
-            alt="GAMC"
-            title="Gobierno Autónomo Municipal de Cochabamba"
+            src="/logop.png"
+            alt="PachaMetrics"
+            title="PachaMetrics"
             className="h-16 w-auto shrink-0 object-contain md:h-20"
           />
         </div>
