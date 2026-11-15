@@ -1,7 +1,8 @@
 import socket
 
 import pytest
-from django.core.exceptions import ImproperlyConfigured
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.db import OperationalError
 from rest_framework.response import Response
 from rest_framework.test import APIRequestFactory
@@ -117,3 +118,14 @@ DIRECCION_DE_DOCUMENTACION = ("192.0.2.1", 80)  # TEST-NET-1 (RFC 5737): nunca e
 def test_las_pruebas_no_pueden_abrir_conexiones_de_red():
     with pytest.raises(RuntimeError, match="red bloqueada"):
         socket.create_connection(DIRECCION_DE_DOCUMENTACION, timeout=1)
+
+
+@pytest.mark.parametrize("contrasena", ["corta", "riada-tunar", "12345678901234", "password"])
+def test_contrasenas_debiles_se_rechazan(contrasena):
+    with pytest.raises(ValidationError):
+        validate_password(contrasena)
+
+
+@pytest.mark.parametrize("contrasena", ["riada-tunari", "riada-en-la-torrentera-de-tunari"])
+def test_contrasena_de_12_o_mas_y_no_comun_se_acepta(contrasena):
+    assert validate_password(contrasena) is None
