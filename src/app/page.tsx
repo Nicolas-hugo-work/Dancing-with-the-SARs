@@ -3,9 +3,11 @@
 import dynamic from "next/dynamic";
 import { useState } from "react";
 
+import AlertsPanel from "@/components/alerts/AlertsPanel";
 import Sidebar from "@/components/layout/Sidebar";
 import TimelineBar from "@/components/layout/TimelineBar";
 import TopNavbar from "@/components/layout/TopNavbar";
+import { ALERTS } from "@/data/alerts";
 import {
   DISTRICTS,
   MOCK_SECTORS,
@@ -24,8 +26,17 @@ const MapComponent = dynamic(() => import("@/components/map/MapComponent"), {
 
 const TIMELINE_YEARS = [2024, 2025, 2026] as const;
 
+const EXTREME_SECTOR_IDS = [
+  ...new Set(
+    ALERTS.filter((alert) => alert.severity === "extreme").map(
+      (alert) => getSectorForDistrict(alert.districtId).id,
+    ),
+  ),
+];
+
 export default function DashboardPage() {
   const [selectedDistrictId, setSelectedDistrictId] = useState(1);
+  const [alertsOpen, setAlertsOpen] = useState(false);
   const selectedDistrict =
     DISTRICTS.find((district) => district.id === selectedDistrictId) ??
     DISTRICTS[0];
@@ -36,16 +47,28 @@ export default function DashboardPage() {
       <MapComponent
         sectors={MOCK_SECTORS}
         selectedSector={selectedSector}
+        extremeSectorIds={EXTREME_SECTOR_IDS}
         onSelectDistrict={setSelectedDistrictId}
       />
 
-      <TopNavbar city="Cochabamba" userName="QUBIX" />
+      <TopNavbar
+        city="Cochabamba"
+        userName="QUBIX"
+        alertCount={ALERTS.length}
+        onAlertsClick={() => setAlertsOpen((isOpen) => !isOpen)}
+      />
 
       <Sidebar
         city="Cochabamba"
         districts={DISTRICTS}
         selectedDistrict={selectedDistrictId}
         onSelectDistrict={setSelectedDistrictId}
+      />
+
+      <AlertsPanel
+        alerts={ALERTS}
+        open={alertsOpen}
+        onClose={() => setAlertsOpen(false)}
       />
 
       <TimelineBar years={TIMELINE_YEARS} activeYear={2026} />

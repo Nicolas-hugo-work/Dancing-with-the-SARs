@@ -6,12 +6,14 @@ type TopNavbarProps = {
   city: string;
   userName: string;
   alertCount?: number;
+  onAlertsClick?: () => void;
 };
 
 export default function TopNavbar({
   city,
   userName,
   alertCount = 0,
+  onAlertsClick,
 }: TopNavbarProps) {
   return (
     <header className="panel-texture panel-texture-mountains fixed left-4 right-4 top-4 z-50 h-20 rounded-2xl border border-[#184C32]/15 bg-[#F2E4DD]/90 shadow-2xl shadow-[#184C32]/20 backdrop-blur-md md:h-24">
@@ -69,9 +71,10 @@ export default function TopNavbar({
 
           <button
             type="button"
-            aria-label="Notificaciones"
-            title="Campana"
-            className="group relative grid h-10 w-10 place-items-center rounded-lg border border-transparent text-[#184C32] transition-all duration-300 hover:border-celeste-500/30 hover:bg-celeste-500/10 max-[339px]:hidden sm:h-11 sm:w-11"
+            aria-label="Abrir panel de alertas"
+            title="Panel de alertas"
+            onClick={onAlertsClick}
+            className="group relative grid h-10 w-10 place-items-center rounded-lg border border-transparent text-[#184C32] transition-all duration-300 hover:border-celeste-500/30 hover:bg-celeste-500/10 sm:h-11 sm:w-11"
           >
             <Bell
               className="h-[18px] w-[18px] transition-all duration-300 group-hover:text-celeste-500 sm:h-5 sm:w-5"

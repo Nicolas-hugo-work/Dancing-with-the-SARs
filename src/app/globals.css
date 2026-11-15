@@ -173,6 +173,11 @@
   fill-opacity: 0.16;
 }
 
+/* La alerta extrema conserva su relleno urgente incluso al pasar el cursor. */
+.district-polygon.district-polygon-extreme:hover {
+  fill-opacity: 0.6;
+}
+
 .leaflet-tooltip.district-tooltip {
   padding: 6px 10px;
   border: 1px solid rgb(24 76 50 / 0.2);
